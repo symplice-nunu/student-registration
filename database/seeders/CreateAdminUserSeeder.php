@@ -38,7 +38,7 @@ class CreateAdminUserSeeder extends Seeder
 
             'email' => 'intwarisymplice@gmail.com',
 
-            'password' => bcrypt('123456789')
+            'password' => bcrypt('123456789@Aa')
 
         ]);
 
