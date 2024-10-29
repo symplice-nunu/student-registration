@@ -1,103 +1,53 @@
 @extends('layouts.app')
 
-
-
 @section('content')
 
-<div class="row">
-
-    <div class="col-lg-12 margin-tb">
-
-        <div class="pull-left">
-
-            <h2>Create New Role</h2>
-
+<div class="py-4">
+    <div class="max-w-5xl mx-auto p-6 bg-white shadow-lg rounded-lg">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-semibold text-gray-800">Create New Role</h2>
+            <a href="{{ route('roles.index') }}" class="px-8 py-2 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600">Back</a>
         </div>
 
-        <div class="pull-right">
+        @if (count($errors) > 0)
+            <div class="mb-4 p-4 text-red-800 bg-red-100 border border-red-200 rounded-lg">
+                <strong>Whoops!</strong> There were some problems with your input.<br>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-            <a class="btn btn-primary" href="{{ route('roles.index') }}"> Back</a>
+        <form action="{{ route('roles.store') }}" method="POST">
+            @csrf
+            <div class="mb-6">
+                <div class="form-group">
+                    <label class="block text-gray-700 font-semibold mb-2" for="name">Name:</label>
+                    <input type="text" name="name" id="name" placeholder="Name" 
+                        class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-teal-200" 
+                        value="{{ old('name') }}" required>
+                </div>
+            </div>
 
-        </div>
+            <div class="mb-6">
+                <label class="block text-gray-700 font-semibold mb-2">Permission:</label>
+               <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 lg:grid-cols-4">
+                    @foreach($permission as $value)
+                        <div class="flex items-center mb-2">
+                            <input type="checkbox" name="permission[]" value="{{ $value->id }}" class="mr-2">
+                            <label class="text-gray-700">{{ $value->name }}</label>
+                        </div>
+                    @endforeach
+               </div>
+            </div>
 
+            <div class="text-center">
+                <button type="submit" class="px-10 py-2 w-full bg-teal-500 text-white rounded-lg font-semibold hover:bg-teal-600">Submit</button>
+            </div>
+        </form>
     </div>
-
 </div>
-
-
-
-@if (count($errors) > 0)
-
-    <div class="alert alert-danger">
-
-        <strong>Whoops!</strong> There were some problems with your input.<br><br>
-
-        <ul>
-
-        @foreach ($errors->all() as $error)
-
-            <li>{{ $error }}</li>
-
-        @endforeach
-
-        </ul>
-
-    </div>
-
-@endif
-
-
-
-{!! Form::open(array('route' => 'roles.store','method'=>'POST')) !!}
-
-<div class="row">
-
-    <div class="col-xs-12 col-sm-12 col-md-12">
-
-        <div class="form-group">
-
-            <strong>Name:</strong>
-
-            {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
-
-        </div>
-
-    </div>
-
-    <div class="col-xs-12 col-sm-12 col-md-12">
-
-        <div class="form-group">
-
-            <strong>Permission:</strong>
-
-            <br/>
-
-            @foreach($permission as $value)
-
-                <label>{{ Form::checkbox('permission[]', $value->id, false, array('class' => 'name')) }}
-
-                {{ $value->name }}</label>
-
-            <br/>
-
-            @endforeach
-
-        </div>
-
-    </div>
-
-    <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-
-        <button type="submit" class="btn btn-primary">Submit</button>
-
-    </div>
-
-</div>
-
-{!! Form::close() !!}
-
-
-
-<p class="text-center text-primary"><small>Tutorial by ItSolutionStuff.com</small></p>
 
 @endsection

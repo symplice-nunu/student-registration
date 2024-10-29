@@ -1,77 +1,29 @@
 @extends('layouts.app')
-
-
-
 @section('content')
-
-<div class="row">
-
-    <div class="col-lg-12 margin-tb">
-
-        <div class="pull-left">
-
-            <h2> Show User</h2>
-
+<div class="xl:p-[100px] p-2 h-screen">
+    <div class="">
+        <div class="text-center">
+            <h1 class="text-[25px]">User Details</h1>
         </div>
-
-        <div class="pull-right">
-
-            <a class="btn btn-primary" href="{{ route('users.index') }}"> Back</a>
-
+        <div class="text-right mb-5">
+            <a class="bg-black text-white rounded-md px-6 py-3" href="{{ route('users.index') }}"> Back</a>
         </div>
-
     </div>
-
-</div>
-
-
-
-<div class="row">
-
-    <div class="col-xs-12 col-sm-12 col-md-12">
-
-        <div class="form-group">
-
-            <strong>Name:</strong>
-
-            {{ $user->name }}
-
+    <div class="bg-black text-white p-1 rounded-md">
+        <div class="">
+            <img class="h-[300px] w-full object-cover" src="{{ asset('assets/images/profile.jpg') }}" alt="logo">
         </div>
-
-    </div>
-
-    <div class="col-xs-12 col-sm-12 col-md-12">
-
-        <div class="form-group">
-
-            <strong>Email:</strong>
-
-            {{ $user->email }}
-
-        </div>
-
-    </div>
-
-    <div class="col-xs-12 col-sm-12 col-md-12">
-
-        <div class="form-group">
-
-            <strong>Roles:</strong>
-
+        <div class="px-3 py-2">
+          <div class="text-[13px]">
+            <div>{{ $user->name }}</div>
+            <div>{{ $user->email }}</div>
             @if(!empty($user->getRoleNames()))
-
-                @foreach($user->getRoleNames() as $v)
-
-                    <label class="badge badge-success">{{ $v }}</label>
-
-                @endforeach
-
+              @foreach($user->getRoleNames() as $v)
+                <div>{{ $v }}</div>
+              @endforeach
             @endif
-
+          </div>
         </div>
-
-    </div>
-
+      </div>
 </div>
-
 @endsection

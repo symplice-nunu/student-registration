@@ -1,105 +1,48 @@
 @extends('layouts.app')
-
-
-
 @section('content')
-
-<div class="row">
-
-    <div class="col-lg-12 margin-tb">
-
-        <div class="pull-left">
-
-            <h2>Users Management</h2>
-
+<div class="p-4">
+  <div class="text-center">
+      <h1 class="text-[25px]">Users Management</h1>
+  </div>
+  <div class="text-right mb-5">
+    <a class="bg-black text-white rounded-md px-6 py-3" href="{{ route('users.create') }}"> Create New User</a>
+  </div>
+  @if ($message = Session::get('success'))
+  <div class="text-green-500 text-center pb-3">
+    <p>{{ $message }}</p>
+  </div>
+  @endif
+  <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 lg:grid-cols-4 gap-2">
+    @foreach ($data as $key => $user)
+      <div class="bg-black text-white p-1 rounded-md">
+        <div class="">
+            <img class="h-[170px] w-full object-cover" src="{{ asset('assets/images/profile.jpg') }}" alt="logo">
         </div>
-
-        <div class="pull-right">
-
-            <a class="btn btn-success" href="{{ route('users.create') }}"> Create New User</a>
-
+        <div class="flex justify-between px-3 py-2">
+          <div class="text-[13px]">
+            <div>{{ $user->name }}</div>
+            <div>{{ $user->email }}</div>
+              @if(!empty($user->getRoleNames()))
+                @foreach($user->getRoleNames() as $v)
+                  <div>{{ $v }}</div>
+                @endforeach
+              @endif
+          </div>
+          <div class="text-[25px] font-bold mt-1">{{ ++$i }}</div>
         </div>
-
-    </div>
-
+        <div class="flex justify-end gap-2 px-3 pb-2">
+          <div>
+            <a class="text-[12px] text-green-600 font-bold" href="{{ route('users.show',$user->id) }}">Show</a>
+          </div>
+          <div>
+            <a class="text-[12px] text-blue-600 font-bold" href="{{ route('users.edit',$user->id) }}">Edit</a>
+          </div>
+          <div>
+            <a class="text-[12px] text-red-600 font-bold" href="{{ route('users.edit',$user->id) }}">Delete</a>
+          </div>
+        </div>
+      </div>
+    @endforeach
+  </div>
 </div>
-
-
-
-@if ($message = Session::get('success'))
-
-<div class="alert alert-success">
-
-  <p>{{ $message }}</p>
-
-</div>
-
-@endif
-
-
-
-<table class="table table-bordered">
-
- <tr>
-
-   <th>No</th>
-
-   <th>Name</th>
-
-   <th>Email</th>
-
-   <th>Roles</th>
-
-   <th width="280px">Action</th>
-
- </tr>
-
- @foreach ($data as $key => $user)
-
-  <tr>
-
-    <td>{{ ++$i }}</td>
-
-    <td>{{ $user->name }}</td>
-
-    <td>{{ $user->email }}</td>
-
-    <td>
-
-      @if(!empty($user->getRoleNames()))
-
-        @foreach($user->getRoleNames() as $v)
-
-           <label class="badge badge-success">{{ $v }}</label>
-
-        @endforeach
-
-      @endif
-
-    </td>
-
-    <td>
-
-       <a class="btn btn-info" href="{{ route('users.show',$user->id) }}">Show</a>
-
-       <a class="btn btn-primary" href="{{ route('users.edit',$user->id) }}">Edit</a>
-
-        
-
-    </td>
-
-  </tr>
-
- @endforeach
-
-</table>
-
-
-
-{!! $data->render() !!}
-
-
-
-<p class="text-center text-primary"><small>Tutorial by ItSolutionStuff.com</small></p>
-
 @endsection

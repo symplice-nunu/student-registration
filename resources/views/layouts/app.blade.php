@@ -87,12 +87,11 @@
                     </div>
                </div>
                <div class="border"></div>
-
-     @endguest
+                @endguest
                 <div class="min-h-screen flex flex-col">
                     <div>
                         <main class="bg-[#f4f4f6] flex-grow">
-                                                @yield('content')
+                            @yield('content')
                             <!-- <footer class="fixed bottom-0 left-0 w-full text-center py-4 bg-[#f3f3fa] text-gray-600 text-sm">
                                 &copy; {{ now()->year }} School Management System. All rights reserved.
                             </footer> -->

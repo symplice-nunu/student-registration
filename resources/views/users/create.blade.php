@@ -1,130 +1,57 @@
 @extends('layouts.app')
 
-
-
 @section('content')
-
-<div class="row">
-
-    <div class="col-lg-12 margin-tb">
-
-        <div class="pull-left">
-
-            <h2>Create New User</h2>
-
-        </div>
-
-        <div class="pull-right">
-
-            <a class="btn btn-primary" href="{{ route('users.index') }}"> Back</a>
-
-        </div>
-
+<div class="px-4 py-6 max-w-2xl mx-auto">
+    <div class="text-center mb-6">
+        <h1 class="text-3xl font-semibold text-gray-800">Create New User</h1>
     </div>
+    
+    @if (count($errors) > 0)
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
+            <strong>Whoops!</strong> There were some problems with your input.<br><br>
+            <ul class="mt-2">
+                @foreach ($errors->all() as $error)
+                    <li class="text-sm">{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
+    <form action="{{ route('users.store') }}" method="POST" class="bg-white shadow-lg rounded-lg p-6">
+        @csrf
+
+        <div class="mb-4">
+            <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+            <input type="text" name="name" id="name" value="{{ old('name') }}" class="w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-teal-500" placeholder="Name" required>
+        </div>
+
+        <div class="mb-4">
+            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+            <input type="email" name="email" id="email" value="{{ old('email') }}" class="w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-teal-500" placeholder="Email" required>
+        </div>
+
+        <div class="mb-4">
+            <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+            <input type="password" name="password" id="password" class="w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-teal-500" placeholder="Password" required>
+        </div>
+
+        <div class="mb-4">
+            <label for="confirm-password" class="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
+            <input type="password" name="confirm-password" id="confirm-password" class="w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-teal-500" placeholder="Confirm Password" required>
+        </div>
+
+        <div class="mb-6">
+            <label for="roles" class="block text-sm font-medium text-gray-700 mb-1">Role</label>
+            <select name="roles[]" id="roles" class="w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-teal-500" multiple>
+                @foreach($roles as $role)
+                    <option value="{{ $role }}">{{ $role }}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="px-6 py-2 bg-teal-500 w-full text-white rounded-lg font-semibold hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2">Submit</button>
+        </div>
+    </form>
 </div>
-
-
-
-@if (count($errors) > 0)
-
-  <div class="alert alert-danger">
-
-    <strong>Whoops!</strong> There were some problems with your input.<br><br>
-
-    <ul>
-
-       @foreach ($errors->all() as $error)
-
-         <li>{{ $error }}</li>
-
-       @endforeach
-
-    </ul>
-
-  </div>
-
-@endif
-
-
-
-
-{!! Form::open(array('route' => 'users.store','method'=>'POST')) !!}
-
-<div class="row">
-
-    <div class="col-xs-12 col-sm-12 col-md-12">
-
-        <div class="form-group">
-
-            <strong>Name:</strong>
-
-            {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
-
-        </div>
-
-    </div>
-
-    <div class="col-xs-12 col-sm-12 col-md-12">
-
-        <div class="form-group">
-
-            <strong>Email:</strong>
-
-            {!! Form::text('email', null, array('placeholder' => 'Email','class' => 'form-control')) !!}
-
-        </div>
-
-    </div>
-
-    <div class="col-xs-12 col-sm-12 col-md-12">
-
-        <div class="form-group">
-
-            <strong>Password:</strong>
-
-            {!! Form::password('password', array('placeholder' => 'Password','class' => 'form-control')) !!}
-
-        </div>
-
-    </div>
-
-    <div class="col-xs-12 col-sm-12 col-md-12">
-
-        <div class="form-group">
-
-            <strong>Confirm Password:</strong>
-
-            {!! Form::password('confirm-password', array('placeholder' => 'Confirm Password','class' => 'form-control')) !!}
-
-        </div>
-
-    </div>
-
-    <div class="col-xs-12 col-sm-12 col-md-12">
-
-        <div class="form-group">
-
-            <strong>Role:</strong>
-
-            {!! Form::select('roles[]', $roles,[], array('class' => 'form-control','multiple')) !!}
-
-        </div>
-
-    </div>
-
-    <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-
-        <button type="submit" class="btn btn-primary">Submit</button>
-
-    </div>
-
-</div>
-
-{!! Form::close() !!}
-
-
-
-<p class="text-center text-primary"><small>Tutorial by ItSolutionStuff.com</small></p>
-
 @endsection

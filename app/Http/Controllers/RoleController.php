@@ -36,19 +36,24 @@ class RoleController extends Controller
 
      */
 
-    function __construct()
-
-    {
-
-         $this->middleware('permission:role-list|role-create|role-edit|role-delete', ['only' => ['index','store']]);
-
-         $this->middleware('permission:role-create', ['only' => ['create','store']]);
-
-         $this->middleware('permission:role-edit', ['only' => ['edit','update']]);
-
-         $this->middleware('permission:role-delete', ['only' => ['destroy']]);
-
-    }
+     public function __construct()
+     {
+         $this->middleware(function ($request, $next) {
+             // Check if the user has 'Admin' role, then bypass specific permission checks
+             if (auth()->user() && auth()->user()->hasRole('Admin')) {
+                 return $next($request);
+             }
+     
+             // Otherwise, apply regular permission checks
+             $this->middleware('permission:role-list|role-create|role-edit|role-delete', ['only' => ['index', 'show']]);
+             $this->middleware('permission:role-create', ['only' => ['create', 'store']]);
+             $this->middleware('permission:role-edit', ['only' => ['edit', 'update']]);
+             $this->middleware('permission:role-delete', ['only' => ['destroy']]);
+     
+             return $next($request);
+         });
+     }
+     
 
     
 
@@ -86,16 +91,12 @@ class RoleController extends Controller
 
      */
 
-    public function create(): View
-
-    {
-
-        $permission = Permission::get();
-
-        return view('roles.create',compact('permission'));
-
-    }
-
+     public function create(): View
+     {
+         $permission = Permission::get();
+         return view('roles.create', compact('permission'));
+     }
+     
     
 
     /**
@@ -110,31 +111,26 @@ class RoleController extends Controller
 
      */
 
-    public function store(Request $request): RedirectResponse
-
-    {
-
-        $this->validate($request, [
-
-            'name' => 'required|unique:roles,name',
-
-            'permission' => 'required',
-
-        ]);
-
-    
-
-        $role = Role::create(['name' => $request->input('name')]);
-
-        $role->syncPermissions($request->input('permission'));
-
-    
-
-        return redirect()->route('roles.index')
-
-                        ->with('success','Role created successfully');
-
-    }
+     public function store(Request $request): RedirectResponse
+     {
+         // Validate the incoming request
+         $this->validate($request, [
+             'name' => 'required|unique:roles,name',
+             'permission' => 'required|array', // Ensure permission is an array
+             'permission.*' => 'exists:permissions,id', // Validate each permission ID exists
+         ]);
+     
+         // Create the new role
+         $role = Role::create(['name' => $request->input('name')]);
+     
+         // Sync the permissions with the role
+         $role->syncPermissions($request->input('permission'));
+     
+         // Redirect back with success message
+         return redirect()->route('roles.index')
+                          ->with('success', 'Role created successfully');
+     }
+     
 
     /**
 
