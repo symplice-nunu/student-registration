@@ -48,6 +48,10 @@
                     <div class="px-3 rounded py-2 {{ request()->routeIs('students.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Manage Student
                     </div>
                 </a>
+                <a class="nav-link" href="{{ route('teachers.index') }}">
+                    <div class="px-3 rounded py-2 {{ request()->routeIs('teachers.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Manage Teacher
+                    </div>
+                </a>
             </div>
             <div class=" w-full">
                <div class="py-2 pr-4 flex gap-1 justify-between xl:justify-end lg:text-right bg-[#f3f3fa]">
