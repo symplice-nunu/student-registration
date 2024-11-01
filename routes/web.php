@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\ClassController;
+use App\Http\Controllers\DocumentController;
 
 Route::get('/', function () {
 
@@ -24,4 +25,10 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('students', StudentController::class);
     Route::resource('teachers', TeacherController::class);
     Route::resource('classes', ClassController::class); 
+    Route::get('/documents/upload', [DocumentController::class, 'showUploadForm'])->name('documents.upload');
+    Route::post('/documents/upload', [DocumentController::class, 'upload'])->name('documents.upload'); // Add your upload logic
+    Route::get('/documents', [DocumentController::class, 'listUploadedDocuments'])->name('documents.list');
+    Route::delete('/documents/{id}', [DocumentController::class, 'destroy'])->name('documents.destroy'); // Add your delete logic
+
+
 });

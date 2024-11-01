@@ -37,23 +37,27 @@
                     </div>
                 </a>
                 <a href="{{ route('users.index') }}">
-                    <div class="px-3 rounded py-2 {{ request()->routeIs('users.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Manage Users
+                    <div class="px-3 rounded py-2 {{ request()->routeIs('users.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Users
                     </div>
                 </a>
                 <a class="nav-link" href="{{ route('roles.index') }}">
-                    <div class="px-3 rounded py-2 {{ request()->routeIs('roles.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Manage Role
+                    <div class="px-3 rounded py-2 {{ request()->routeIs('roles.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Role
                     </div>
                 </a>
                 <a class="nav-link" href="{{ route('students.index') }}">
-                    <div class="px-3 rounded py-2 {{ request()->routeIs('students.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Manage Student
+                    <div class="px-3 rounded py-2 {{ request()->routeIs('students.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Student
                     </div>
                 </a>
                 <a class="nav-link" href="{{ route('teachers.index') }}">
-                    <div class="px-3 rounded py-2 {{ request()->routeIs('teachers.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Manage Teacher
+                    <div class="px-3 rounded py-2 {{ request()->routeIs('teachers.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Teacher
                     </div>
                 </a>
                 <a class="nav-link" href="{{ route('classes.index') }}">
-                    <div class="px-3 rounded py-2 {{ request()->routeIs('classes.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Manage Class
+                    <div class="px-3 rounded py-2 {{ request()->routeIs('classes.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Class
+                    </div>
+                </a>
+                <a class="nav-link" href="{{ route('documents.list') }}">
+                    <div class="px-3 rounded py-2 {{ request()->routeIs('documents.list') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Document
                     </div>
                 </a>
             </div>
