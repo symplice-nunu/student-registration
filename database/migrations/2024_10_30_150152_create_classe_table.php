@@ -23,4 +23,3 @@ class CreateClassesTable extends Migration
         Schema::dropIfExists('classes');
     }
 }
-

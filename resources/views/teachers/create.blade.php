@@ -1,61 +1,78 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="max-w-2xl h-screen mx-auto p-4">
-    <h1 class="text-2xl font-bold text-center mb-4">Register New Teacher</h1>
+<div class="h-screen max-w-4xl mx-auto p-4">
+    <h1 class="text-2xl text-center font-bold mb-4">Add New Teacher</h1>
+
+    @if ($message = Session::get('success'))
+        <div class="bg-green-500 text-center text-white p-2 rounded mb-4">
+            {{ $message }}
+        </div>
+    @endif
+
     <form action="{{ route('teachers.store') }}" method="POST">
         @csrf
+        
         <div class="mb-4">
-            <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Name:</label>
-            <input type="text" id="name" name="name" value="{{ old('name') }}"
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-            @if ($errors->has('name'))
-                <span class="text-red-500 text-sm">{{ $errors->first('name') }}</span>
-            @endif
+            <label for="name" class="block text-gray-700">Name:</label>
+            <input type="text" id="name" name="name" 
+                class="border rounded px-4 py-2 w-full @error('name') border-red-500 @enderror" 
+                value="{{ old('name') }}" >
+            @error('name')
+                <span class="text-red-500 text-sm">{{ $message }}</span>
+            @enderror
         </div>
 
         <div class="mb-4">
-            <label for="DOB" class="block text-gray-700 text-sm font-bold mb-2">Date of Birth:</label>
-            <input type="date" id="DOB" name="DOB" value="{{ old('DOB') }}"
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-            @if ($errors->has('DOB'))
-                <span class="text-red-500 text-sm">{{ $errors->first('DOB') }}</span>
-            @endif
+            <label for="DOB" class="block text-gray-700">Date of Birth:</label>
+            <input type="date" id="DOB" name="DOB" 
+                class="border rounded px-4 py-2 w-full @error('DOB') border-red-500 @enderror" 
+                value="{{ old('DOB') }}" >
+            @error('DOB')
+                <span class="text-red-500 text-sm">{{ $message }}</span>
+            @enderror
         </div>
 
         <div class="mb-4">
-            <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email:</label>
-            <input type="email" id="email" name="email" value="{{ old('email') }}"
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-            @if ($errors->has('email'))
-                <span class="text-red-500 text-sm">{{ $errors->first('email') }}</span>
-            @endif
+            <label for="email" class="block text-gray-700">Email:</label>
+            <input type="email" id="email" name="email" 
+                class="border rounded px-4 py-2 w-full @error('email') border-red-500 @enderror" 
+                value="{{ old('email') }}" >
+            @error('email')
+                <span class="text-red-500 text-sm">{{ $message }}</span>
+            @enderror
         </div>
 
         <div class="mb-4">
-            <label for="address" class="block text-gray-700 text-sm font-bold mb-2">Address:</label>
-            <textarea id="address" name="address"
-                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">{{ old('address') }}</textarea>
-            @if ($errors->has('address'))
-                <span class="text-red-500 text-sm">{{ $errors->first('address') }}</span>
-            @endif
+            <label for="phoneNumber" class="block text-gray-700">Phone Number:</label>
+            <input type="text" id="phoneNumber" name="phoneNumber" 
+                class="border rounded px-4 py-2 w-full @error('phoneNumber') border-red-500 @enderror" 
+                value="{{ old('phoneNumber') }}" >
+            @error('phoneNumber')
+                <span class="text-red-500 text-sm">{{ $message }}</span>
+            @enderror
         </div>
 
         <div class="mb-4">
-            <label for="phoneNumber" class="block text-gray-700 text-sm font-bold mb-2">Phone Number:</label>
-            <input type="tel" id="phoneNumber" name="phoneNumber" value="{{ old('phoneNumber') }}"
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-            @if ($errors->has('phoneNumber'))
-                <span class="text-red-500 text-sm">{{ $errors->first('phoneNumber') }}</span>
-            @endif
+            <label for="address" class="block text-gray-700">Address:</label>
+            <input type="text" id="address" name="address" 
+                class="border rounded px-4 py-2 w-full @error('address') border-red-500 @enderror" 
+                value="{{ old('address') }}">
+            @error('address')
+                <span class="text-red-500 text-sm">{{ $message }}</span>
+            @enderror
         </div>
 
-        <div class="flex items-center justify-between">
-            <button type="submit"
-                    class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                Register Teacher
-            </button>
+        <div class="mb-4">
+            <label for="createUser" class="flex items-center">
+                <input type="checkbox" id="createUser" name="createUser" class="mr-2">
+                <span class="text-gray-700">Create a user account with default password?</span>
+            </label>
         </div>
+
+        <button type="submit" class="bg-teal-500 text-white px-4 py-2 rounded hover:bg-teal-600">
+            Add Teacher
+        </button>
     </form>
 </div>
 @endsection

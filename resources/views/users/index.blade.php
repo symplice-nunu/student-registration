@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div class="p-4">
+<div class="p-4 h-screen">
   <div class="text-center">
       <h1 class="text-[25px]">Users Management</h1>
   </div>
@@ -44,5 +44,8 @@
       </div>
     @endforeach
   </div>
+  <div class="mt-4">
+  {!! $data->render() !!}
+    </div>
 </div>
 @endsection

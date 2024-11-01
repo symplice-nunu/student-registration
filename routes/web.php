@@ -6,6 +6,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\ClassController;
 
 Route::get('/', function () {
 
@@ -16,12 +17,11 @@ Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/students/pdf', [StudentController::class, 'generatePdfReport'])->name('students.pdf');
 Route::get('teachers/pdf', [TeacherController::class, 'generatePdfReport'])->name('teachers.pdf');
+Route::get('classes/pdf', [ClassController::class, 'generatePdf'])->name('classes.pdf'); 
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
     Route::resource('students', StudentController::class);
     Route::resource('teachers', TeacherController::class);
-
-
-    
+    Route::resource('classes', ClassController::class); 
 });

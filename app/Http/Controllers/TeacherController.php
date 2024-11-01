@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Teacher; // Make sure you create a Teacher model
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+
 use PDF; 
 
 class TeacherController extends Controller
@@ -43,29 +46,58 @@ class TeacherController extends Controller
         return view('teachers.create');
     }
 
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
+        // Validate the incoming request data
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:teachers,email',
-            'phoneNumber' => 'required|string|max:20',
-            'DOB' => 'required|date',
-            // Validate other fields...
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                'regex:/^[a-zA-Z\s]+$/', // Allows only letters and spaces
+            ],
+            'DOB' => 'required|date|before:today', // Date of Birth validation
+            'email' => [
+                'required',
+                'email',
+                'max:255',
+                'regex:/^[\w\.-]+@[\w\.-]+\.\w+$/',
+                'unique:teachers,email', // Ensure email is unique in teachers table
+            ],
+            'phoneNumber' => [
+                'required',
+                'numeric',
+                'regex:/^(\+?\d{1,3}[- ]?)?\d{10}$/', // Valid phone number format
+            ],
         ]);
 
+        // Get all teacher data from the request
+        $teacherData = $request->all();
+
         // Generate teacherid
-        $teacherid = $this->generateTeacherId($request->name);
+        $teacherid = $this->generateTeacherId($teacherData['name']);
 
         // Create the teacher record
-        Teacher::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'phoneNumber' => $request->phoneNumber,
-            'DOB' => $request->DOB,
+        $teacher = Teacher::create([
+            'name' => $teacherData['name'],
+            'DOB' => $teacherData['DOB'],
+            'email' => $teacherData['email'],
+            'phoneNumber' => $teacherData['phoneNumber'],
             'teacherid' => $teacherid,
         ]);
 
-        return redirect()->route('teachers.index')->with('success', 'Teacher created successfully.');
+        // Check if user account should be created
+        if ($request->has('createUser')) {
+            // Create the user account with the default password
+            User::create([
+                'name' => $teacherData['name'],
+                'email' => $teacherData['email'],
+                'password' => Hash::make('1234567890'), // Hash the default password
+            ]);
+        }
+
+        return redirect()->route('teachers.index')
+                         ->with('success', 'Teacher created successfully.');
     }
 
     private function generateTeacherId($name)
