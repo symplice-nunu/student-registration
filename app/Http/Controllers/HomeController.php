@@ -1,6 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\User;
+use App\Models\Teacher;
+use App\Models\Student;
+use App\Models\Classe;
+use App\Models\Document;
+use App\Models\Course;
 
 use Illuminate\Http\Request;
 
@@ -15,14 +21,15 @@ class HomeController extends Controller
     {
         $this->middleware('auth');
     }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index()
     {
-        return view('home');
+        $userCount = User::count();         
+        $teacherCount = Teacher::count();  
+        $studentCount = Student::count();
+        $classCount = Classe::count();
+        $documentCount = Document::count();
+        $courseCount = Course::count();
+        
+        return view('home', compact('userCount', 'teacherCount', 'studentCount', 'classCount', 'documentCount', 'courseCount'));
     }
 }

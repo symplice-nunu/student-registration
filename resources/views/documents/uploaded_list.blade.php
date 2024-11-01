@@ -16,7 +16,7 @@
         <table class="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
             <thead class="bg-gray-200">
                 <tr>
-                    <th class="py-2 px-4 border-b">Document Name</th>
+                    <th class="py-2 px-4 text-left border-b">Document Name</th>
                     <th class="py-2 px-4 border-b">Actions</th>
                 </tr>
             </thead>

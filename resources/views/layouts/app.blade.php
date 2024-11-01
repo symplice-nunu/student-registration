@@ -11,6 +11,7 @@
     <!-- Scripts -->
     @vite('resources/css/app.css')
     <!-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div id="app">
@@ -58,6 +59,10 @@
                 </a>
                 <a class="nav-link" href="{{ route('documents.list') }}">
                     <div class="px-3 rounded py-2 {{ request()->routeIs('documents.list') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Document
+                    </div>
+                </a>
+                <a class="nav-link" href="{{ route('courses.index') }}">
+                    <div class="px-3 rounded py-2 {{ request()->routeIs('courses.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Course
                     </div>
                 </a>
             </div>

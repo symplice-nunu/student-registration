@@ -31,11 +31,11 @@
         <table class="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
             <thead class="bg-gray-200">
                 <tr>
-                    <th class="py-2 px-4 border-b">Class ID</th>
-                    <th class="py-2 px-4 border-b">Class Name</th>
-                    <th class="py-2 px-4 border-b">Teacher ID</th>
-                    <th class="py-2 px-4 border-b">Schedule</th>
-                    <th class="py-2 px-4 border-b">Actions</th>
+                    <th class="py-2 px-4 text-left border-b">Class ID</th>
+                    <th class="py-2 px-4 text-left border-b">Class Name</th>
+                    <th class="py-2 px-4 text-left border-b">Teacher ID</th>
+                    <th class="py-2 px-4 text-left border-b">Schedule</th>
+                    <th class="py-2 px-4 text-center border-b">Actions</th>
                 </tr>
             </thead>
             <tbody>

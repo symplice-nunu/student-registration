@@ -38,7 +38,7 @@
             <a class="text-[12px] text-blue-600 font-bold" href="{{ route('users.edit',$user->id) }}">Edit</a>
           </div>
           <div>
-            <a class="text-[12px] text-red-600 font-bold" href="{{ route('users.edit',$user->id) }}">Delete</a>
+            <a class="text-[12px] text-red-600 font-bold" href="{{ route('users.destroy',$user->id) }}">Delete</a>
           </div>
         </div>
       </div>

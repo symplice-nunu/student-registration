@@ -8,6 +8,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\CourseController;
 
 Route::get('/', function () {
 
@@ -19,12 +20,15 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/students/pdf', [StudentController::class, 'generatePdfReport'])->name('students.pdf');
 Route::get('teachers/pdf', [TeacherController::class, 'generatePdfReport'])->name('teachers.pdf');
 Route::get('classes/pdf', [ClassController::class, 'generatePdf'])->name('classes.pdf'); 
+Route::get('/courses/pdf', [CourseController::class, 'generatePdf'])->name('courses.pdf');
+
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
     Route::resource('students', StudentController::class);
     Route::resource('teachers', TeacherController::class);
     Route::resource('classes', ClassController::class); 
+    Route::resource('courses', CourseController::class);
     Route::get('/documents/upload', [DocumentController::class, 'showUploadForm'])->name('documents.upload');
     Route::post('/documents/upload', [DocumentController::class, 'upload'])->name('documents.upload'); // Add your upload logic
     Route::get('/documents', [DocumentController::class, 'listUploadedDocuments'])->name('documents.list');

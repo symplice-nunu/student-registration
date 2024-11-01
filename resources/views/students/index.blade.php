@@ -37,13 +37,13 @@
         <table class="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
             <thead class="bg-gray-200">
                 <tr>
-                    <th class="py-2 px-4 border-b">No</th>
-                    <th class="py-2 px-4 border-b">Name</th>
-                    <th class="py-2 px-4 border-b">Date of Birth</th>
-                    <th class="py-2 px-4 border-b">Email</th>
-                    <th class="py-2 px-4 border-b">Address</th>
-                    <th class="py-2 px-4 border-b">Phone Number</th>
-                    <th class="py-2 px-4 border-b">Actions</th>
+                    <th class="py-2 px-4 text-left border-b">No</th>
+                    <th class="py-2 px-4 text-left border-b">Name</th>
+                    <th class="py-2 px-4 text-left border-b">Date of Birth</th>
+                    <th class="py-2 px-4 text-left border-b">Email</th>
+                    <th class="py-2 px-4 text-left border-b">Address</th>
+                    <th class="py-2 px-4 text-left border-b">Phone Number</th>
+                    <th class="py-2 px-4 text-center border-b">Actions</th>
                 </tr>
             </thead>
             <tbody>
