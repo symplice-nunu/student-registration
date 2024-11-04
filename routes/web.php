@@ -9,6 +9,7 @@ use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\AssignController;
 
 Route::get('/', function () {
 
@@ -33,6 +34,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/documents/upload', [DocumentController::class, 'upload'])->name('documents.upload'); // Add your upload logic
     Route::get('/documents', [DocumentController::class, 'listUploadedDocuments'])->name('documents.list');
     Route::delete('/documents/{id}', [DocumentController::class, 'destroy'])->name('documents.destroy'); // Add your delete logic
+    Route::get('/students-classes-courses', [AssignController::class, 'getStudentsClassesCourses'])->name('assign.list');
+    Route::post('/submit-selected-items', [AssignController::class, 'storeSelectedItems'])->name('submit.selected.items');
+// Route::get('/selections', [SelectionController::class, 'getAllSelections'])->name('selections.getAll');
 
-
+    
 });
