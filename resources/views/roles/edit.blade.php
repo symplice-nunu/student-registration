@@ -5,13 +5,13 @@
 <div class="py-4">
     <div class="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg">
         <div class="flex justify-between items-center mb-6">
-            <h2 class="text-2xl font-semibold text-gray-800">Edit Role</h2>
-            <a href="{{ route('roles.index') }}" class="px-8 py-2 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600">Back</a>
+            <h2 class="text-2xl font-semibold text-gray-800">Modifier le rôle</h2>
+            <a href="{{ route('roles.index') }}" class="px-8 py-2 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600">Dos</a>
         </div>
 
         @if (count($errors) > 0)
             <div class="mb-4 p-4 text-red-800 bg-red-100 border border-red-200 rounded-lg">
-                <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                <strong>Whoops!</strong> Il y a eu quelques problèmes avec votre saisie.<br><br>
                 <ul>
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
@@ -26,13 +26,13 @@
             <div class="space-y-6">
                 <div>
                     <label class="block text-gray-700 font-semibold" for="name">
-                        <strong>Name:</strong>
+                        <strong>Nom:</strong>
                     </label>
-                    <input type="text" name="name" value="{{ old('name', $role->name) }}" placeholder="Name" class="mt-1 px-4 py-2 block w-full border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-teal-200" />
+                    <input type="text" name="name" value="{{ old('name', $role->name) }}" placeholder="Nom" class="mt-1 px-4 py-2 block w-full border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-teal-200" />
                 </div>
 
                 <div>
-                    <strong class="block text-gray-700 font-semibold">Permission:</strong>
+                    <strong class="block text-gray-700 font-semibold">Autorisation:</strong>
                     <div class="mt-2 grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 lg:grid-cols-4">
                         @foreach($permission as $value)
                             <label class="flex items-center">
@@ -44,7 +44,7 @@
                 </div>
 
                 <div class="text-center">
-                    <button type="submit" class="px-4 py-2 w-full bg-teal-500 text-white rounded-lg font-semibold hover:bg-teal-600">Submit</button>
+                    <button type="submit" class="px-4 py-2 w-full bg-teal-500 text-white rounded-lg font-semibold hover:bg-teal-600">Soumettre</button>
                 </div>
             </div>
         </form>

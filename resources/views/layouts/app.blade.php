@@ -31,30 +31,30 @@
                     </div>
                     <div class="mt-2">SMS</div>
                 </div>
-                <div class="text-[#d4d4d4] pt-9">MAIN MENU</div>
+                <div class="text-[#d4d4d4] pt-9">Menu principal</div>
 
                 <a href="{{ route('home') }}">
-                    <div class="mt-4 px-3 rounded py-2 {{ request()->routeIs('home') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Dashboard
+                    <div class="mt-4 px-3 rounded py-2 {{ request()->routeIs('home') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Tableau de bord
                     </div>
                 </a>
                 <a href="{{ route('users.index') }}">
-                    <div class="px-3 rounded py-2 {{ request()->routeIs('users.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Users
+                    <div class="px-3 rounded py-2 {{ request()->routeIs('users.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Utilisateurs
                     </div>
                 </a>
                 <a class="nav-link" href="{{ route('roles.index') }}">
-                    <div class="px-3 rounded py-2 {{ request()->routeIs('roles.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Role
+                    <div class="px-3 rounded py-2 {{ request()->routeIs('roles.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Rôle
                     </div>
                 </a>
                 <a class="nav-link" href="{{ route('students.index') }}">
-                    <div class="px-3 rounded py-2 {{ request()->routeIs('students.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Student
+                    <div class="px-3 rounded py-2 {{ request()->routeIs('students.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Étudiant
                     </div>
                 </a>
                 <a class="nav-link" href="{{ route('teachers.index') }}">
-                    <div class="px-3 rounded py-2 {{ request()->routeIs('teachers.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Teacher
+                    <div class="px-3 rounded py-2 {{ request()->routeIs('teachers.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Professeur
                     </div>
                 </a>
                 <a class="nav-link" href="{{ route('classes.index') }}">
-                    <div class="px-3 rounded py-2 {{ request()->routeIs('classes.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Class
+                    <div class="px-3 rounded py-2 {{ request()->routeIs('classes.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Classe
                     </div>
                 </a>
                 <a class="nav-link" href="{{ route('documents.list') }}">
@@ -62,11 +62,11 @@
                     </div>
                 </a>
                 <a class="nav-link" href="{{ route('courses.index') }}">
-                    <div class="px-3 rounded py-2 {{ request()->routeIs('courses.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Course
+                    <div class="px-3 rounded py-2 {{ request()->routeIs('courses.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Cours
                     </div>
                 </a>
                 <a class="nav-link" href="{{ route('assign.list') }}">
-                    <div class="px-3 rounded py-2 {{ request()->routeIs('assign.list') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Assign class & course
+                    <div class="px-3 rounded py-2 {{ request()->routeIs('assign.list') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Attribuer une classe et un cours
                     </div>
                 </a>
             </div>

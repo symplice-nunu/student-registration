@@ -3,10 +3,10 @@
 <div class="xl:p-[100px] p-2 h-screen">
     <div class="">
         <div class="text-center">
-            <h1 class="text-[25px]">User Details</h1>
+            <h1 class="text-[25px]">Détails de l'utilisateur</h1>
         </div>
         <div class="text-right mb-5">
-            <a class="bg-black text-white rounded-md px-6 py-3" href="{{ route('users.index') }}"> Back</a>
+            <a class="bg-black text-white rounded-md px-6 py-3" href="{{ route('users.index') }}"> Dos</a>
         </div>
     </div>
     <div class="bg-black text-white p-1 rounded-md">

@@ -2,10 +2,10 @@
 @section('content')
 <div class="p-4 h-screen">
   <div class="text-center">
-      <h1 class="text-[25px]">Users Management</h1>
+      <h1 class="text-[25px]">Gestion des utilisateurs</h1>
   </div>
   <div class="text-right mb-5">
-    <a class="bg-black text-white rounded-md px-6 py-3" href="{{ route('users.create') }}"> Create New User</a>
+    <a class="bg-black text-white rounded-md px-6 py-3" href="{{ route('users.create') }}"> Créer un nouvel utilisateur</a>
   </div>
   @if ($message = Session::get('success'))
   <div class="text-green-500 text-center pb-3">
@@ -32,13 +32,13 @@
         </div>
         <div class="flex justify-end gap-2 px-3 pb-2">
           <div>
-            <a class="text-[12px] text-green-600 font-bold" href="{{ route('users.show',$user->id) }}">Show</a>
+            <a class="text-[12px] text-green-600 font-bold" href="{{ route('users.show',$user->id) }}">Montrer</a>
           </div>
           <div>
-            <a class="text-[12px] text-blue-600 font-bold" href="{{ route('users.edit',$user->id) }}">Edit</a>
+            <a class="text-[12px] text-blue-600 font-bold" href="{{ route('users.edit',$user->id) }}">Modifier</a>
           </div>
           <div>
-            <a class="text-[12px] text-red-600 font-bold" href="{{ route('users.destroy',$user->id) }}">Delete</a>
+            <a class="text-[12px] text-red-600 font-bold" href="{{ route('users.destroy',$user->id) }}">Supprimer</a>
           </div>
         </div>
       </div>

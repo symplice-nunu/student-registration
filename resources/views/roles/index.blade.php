@@ -4,8 +4,8 @@
 
 <div class="max-w-7xl mx-auto p-6 bg-white shadow-lg rounded-lg">
     <div class="flex justify-between items-center mb-6">
-        <h2 class="text-2xl font-semibold text-gray-800">Role Management</h2>
-            <a href="{{ route('roles.create') }}" class="px-4 py-2 bg-teal-500 text-white rounded-lg font-semibold hover:bg-teal-600">Create New Role</a>
+        <h2 class="text-2xl font-semibold text-gray-800">Gestion des rôles</h2>
+            <a href="{{ route('roles.create') }}" class="px-4 py-2 bg-teal-500 text-white rounded-lg font-semibold hover:bg-teal-600">Créer un nouveau rôle</a>
      
     </div>
 
@@ -20,7 +20,7 @@
             <thead>
                 <tr class="text-left border-b border-gray-200">
                     <th class="px-4 py-2 text-gray-600 font-semibold">No</th>
-                    <th class="px-4 py-2 text-gray-600 font-semibold">Name</th>
+                    <th class="px-4 py-2 text-gray-600 font-semibold">Nom</th>
                     <th class="px-4 py-2 text-gray-600 font-semibold w-60">Action</th>
                 </tr>
             </thead>
@@ -31,14 +31,14 @@
                         <td class="px-4 py-2 text-gray-700">{{ $role->name }}</td>
                         <td class="px-4 py-2">
                             <div class="flex space-x-2">
-                                <a href="{{ route('roles.show', $role->id) }}" class="px-3 py-1 bg-blue-500 text-white text-[12px] rounded-lg hover:bg-blue-600">Show</a>
+                                <a href="{{ route('roles.show', $role->id) }}" class="px-3 py-1 bg-blue-500 text-white text-[12px] rounded-lg hover:bg-blue-600">Montrer</a>
                                 
-                                    <a href="{{ route('roles.edit', $role->id) }}" class="px-3 py-1 bg-indigo-500 text-white text-[12px] rounded-lg hover:bg-indigo-600">Edit</a>
+                                    <a href="{{ route('roles.edit', $role->id) }}" class="px-3 py-1 bg-indigo-500 text-white text-[12px] rounded-lg hover:bg-indigo-600">Modifier</a>
                                 @can('role-edit')
                                 @endcan
                                 @can('Admin')
                                     {!! Form::open(['method' => 'DELETE', 'route' => ['roles.destroy', $role->id], 'class' => 'inline']) !!}
-                                        {!! Form::submit('Delete', ['class' => 'px-3 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600 cursor-pointer']) !!}
+                                        {!! Form::submit('Supprimer', ['class' => 'px-3 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600 cursor-pointer']) !!}
                                     {!! Form::close() !!}
                                 @endcan
                             </div>

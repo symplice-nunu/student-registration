@@ -3,27 +3,27 @@
 <div class="h-screen">
     <div class="p-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 lg:grid-cols-4 gap-3">
         <div class="bg-black text-white p-4 rounded-xl">
-            <div>Users</div>
+            <div>Utilisateurs</div>
             <div class="text-[25px] font-bold">{{ $userCount }}</div>
         </div>
         <div class="bg-black text-white p-4 rounded-xl">
-            <div>Students</div>
+            <div>Étudiant</div>
             <div class="text-[25px] font-bold">{{ $studentCount }}</div>
         </div>
         <div class="bg-black text-white p-4 rounded-xl">
-            <div>Teachers</div>
+            <div>Professeur</div>
             <div class="text-[25px] font-bold">{{ $teacherCount }}</div>
         </div>
         <div class="bg-black text-white p-4 rounded-xl">
-            <div>Classes</div>
+            <div>Classe</div>
             <div class="text-[25px] font-bold">{{ $classCount }}</div>
         </div>
         <div class="bg-black text-white p-4 rounded-xl">
-            <div>Amount per semester</div>
+            <div>Montant par semestre</div>
             <div class="text-[25px] font-bold">1000</div>
         </div>
         <div class="bg-black text-white p-4 rounded-xl">
-            <div>Amount per year</div>
+            <div>Montant par an</div>
             <div class="text-[25px] font-bold">1000</div>
         </div>
         <div class="bg-black text-white p-4 rounded-xl">
@@ -31,7 +31,7 @@
             <div class="text-[25px] font-bold">{{ $documentCount }}</div>
         </div>
         <div class="bg-black text-white p-4 rounded-xl">
-            <div>Courses</div>
+            <div>Cours</div>
             <div class="text-[25px] font-bold">{{ $courseCount }}</div>
         </div>
     </div>
@@ -54,7 +54,7 @@
             const comparisonChart = new Chart(ctxBar, {
                 type: 'bar',
                 data: {
-                    labels: ['Users', 'Teachers', 'Students', 'Classes', 'Documents', 'Courses'],
+                    labels: ['Utilisateurs', 'Professeur', 'Étudiant', 'Classe', 'Document', 'Cours'],
                     datasets: [{
                         label: 'Count',
                         data: [userCount, teacherCount, studentCount, classCount, documentCount, courseCount],
@@ -91,7 +91,7 @@
             const pieChart = new Chart(ctxPie, {
                 type: 'pie',
                 data: {
-                    labels: ['Users', 'Teachers', 'Students', 'Classes', 'Documents', 'Courses'],
+                    labels: ['Utilisateurs', 'Professeur', 'Étudiant', 'Classe', 'Document', 'Cours'],
                     datasets: [{
                         label: 'Count',
                         data: [userCount, teacherCount, studentCount, classCount, documentCount, courseCount],

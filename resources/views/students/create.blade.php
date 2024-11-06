@@ -2,11 +2,11 @@
 
 @section('content')
 <div class="max-w-2xl h-screen mx-auto p-4">
-    <h1 class="text-2xl font-bold text-center mb-4">Register New Student</h1>
+    <h1 class="text-2xl font-bold text-center mb-4">Inscrire un nouvel étudiant</h1>
     <form action="{{ route('students.store') }}" method="POST">
         @csrf
         <div class="mb-4">
-            <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Name:</label>
+            <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Nom:</label>
             <input type="text" id="name" name="name" value="{{ old('name') }}"
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             @if ($errors->has('name'))
@@ -15,7 +15,7 @@
         </div>
 
         <div class="mb-4">
-            <label for="dateOfBirth" class="block text-gray-700 text-sm font-bold mb-2">Date of Birth:</label>
+            <label for="dateOfBirth" class="block text-gray-700 text-sm font-bold mb-2">Date de naissance:</label>
             <input type="date" id="dateOfBirth" name="dateOfBirth" value="{{ old('dateOfBirth') }}"
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             @if ($errors->has('dateOfBirth'))
@@ -33,7 +33,7 @@
         </div>
 
         <div class="mb-4">
-            <label for="address" class="block text-gray-700 text-sm font-bold mb-2">Address:</label>
+            <label for="address" class="block text-gray-700 text-sm font-bold mb-2">Addresse:</label>
             <textarea id="address" name="address"
                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">{{ old('address') }}</textarea>
             @if ($errors->has('address'))
@@ -42,7 +42,7 @@
         </div>
 
         <div class="mb-4">
-            <label for="phoneNumber" class="block text-gray-700 text-sm font-bold mb-2">Phone Number:</label>
+            <label for="phoneNumber" class="block text-gray-700 text-sm font-bold mb-2">Numéro de téléphone:</label>
             <input type="tel" id="phoneNumber" name="phoneNumber" value="{{ old('phoneNumber') }}"
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             @if ($errors->has('phoneNumber'))
@@ -53,14 +53,14 @@
         <div class="mb-4">
             <label for="createUser" class="flex items-center">
                 <input type="checkbox" id="createUser" name="createUser" class="mr-2">
-                <span class="text-gray-700">Create a user account with default password?</span>
+                <span class="text-gray-700">Créer un compte utilisateur avec mot de passe par défaut ?</span>
             </label>
         </div>
 
         <div class="flex items-center justify-between">
             <button type="submit"
                     class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                Register Student
+                    Inscription des étudiants
             </button>
         </div>
     </form>
