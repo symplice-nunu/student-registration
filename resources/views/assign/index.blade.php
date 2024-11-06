@@ -94,6 +94,7 @@
                     <th class="px-4 py-2 border">Class</th>
                     <th class="px-4 py-2 border">Course</th>
                     <th class="px-4 py-2 border">Created At</th>
+                    <th class="px-4 py-2 border">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -104,6 +105,15 @@
                         <td class="px-4 py-2 border">{{ $selection->class_name }}</td>
                         <td class="px-4 py-2 border">{{ $selection->course_names }}</td>
                         <td class="px-4 py-2 border">{{ $selection->created_at }}</td>
+                        <td class="px-4 py-2 border text-center">
+                            <button onclick="showSelectionDetails({{ json_encode($selection) }})" class="bg-blue-500 text-white px-2 py-1 rounded">Show</button>
+                            <a href="{{ route('selections.edit', $selection->id) }}" class="bg-yellow-500 text-white px-2 py-1 rounded">Edit</a>
+                            <form action="{{ route('selections.destroy', $selection->id) }}" method="POST" style="display:inline-block;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="bg-red-500 text-white px-2 py-1 rounded">Delete</button>
+                            </form>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
@@ -111,6 +121,17 @@
     </div>
     <div class="mt-4">
         {{ $selections->links() }}
+    </div>
+</div>
+<!-- Modal for "Show" -->
+<div id="showModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-white rounded-lg p-5 w-1/2">
+        <h2 class="text-xl font-bold mb-4">Selection Details</h2>
+        <p><strong>Student Name:</strong> <span id="modalStudentName"></span></p>
+        <p><strong>Class:</strong> <span id="modalClassName"></span></p>
+        <p><strong>Course:</strong> <span id="modalCourseNames"></span></p>
+        <p><strong>Created At:</strong> <span id="modalCreatedAt"></span></p>
+        <button onclick="closeModal()" class="mt-4 bg-teal-500 text-white px-4 py-2 rounded">Close</button>
     </div>
 </div>
 
@@ -122,6 +143,19 @@
 </style>
 
 <script>
+    
+    function showSelectionDetails(selection) {
+        document.getElementById('modalStudentName').innerText = selection.student_name;
+        document.getElementById('modalClassName').innerText = selection.class_name;
+        document.getElementById('modalCourseNames').innerText = selection.course_names;
+        document.getElementById('modalCreatedAt').innerText = selection.created_at;
+        document.getElementById('showModal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+        document.getElementById('showModal').classList.add('hidden');
+    }
+
     let selectedStudent = '';
     let selectedClass = '';
     let selectedCourses = [];

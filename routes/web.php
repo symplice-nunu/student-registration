@@ -36,7 +36,13 @@ Route::group(['middleware' => ['auth']], function() {
     Route::delete('/documents/{id}', [DocumentController::class, 'destroy'])->name('documents.destroy'); // Add your delete logic
     Route::get('/students-classes-courses', [AssignController::class, 'getStudentsClassesCourses'])->name('assign.list');
     Route::post('/submit-selected-items', [AssignController::class, 'storeSelectedItems'])->name('submit.selected.items');
-// Route::get('/selections', [SelectionController::class, 'getAllSelections'])->name('selections.getAll');
+    Route::get('/selections/{id}/edit', [AssignController::class, 'edit'])->name('selections.edit');
+    Route::delete('/selections/{id}', [AssignController::class, 'destroy'])->name('selections.destroy');
+    Route::put('/selections/{id}', [AssignController::class, 'update'])->name('selections.update');
+    Route::get('/selections/student-names', [AssignController::class, 'getStudentNames'])->name('selections.list');
+    Route::post('/update-marks', [AssignController::class, 'updateMarks'])->name('update.marks');
+    Route::post('/selections/{id}/update-marks', [AssignController::class, 'updateMarks'])->name('selections.updateMarks');
+
 
     
 });
