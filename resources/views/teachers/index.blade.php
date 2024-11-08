@@ -11,6 +11,7 @@
     @endif
 
     <!-- Create New Teacher Button -->
+    @can('teacher-create')
     <div class="mb-4 text-end">
         <a href="{{ route('teachers.create') }}" class="bg-teal-500 text-white px-4 py-2 rounded hover:bg-teal-600">
             New Teacher
@@ -19,6 +20,7 @@
             PDF Report
         </a>
     </div>
+    @endcan
 
     <!-- Search Form -->
     <div class="mb-4 text-right">
@@ -31,6 +33,7 @@
         </form>
     </div>
 
+    @can('teacher-list')
     <div class="overflow-x-auto">
         <table class="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
             <thead class="bg-gray-200">
@@ -40,7 +43,9 @@
                     <th class="py-2 px-4 text-left border-b">Date of Birth</th>
                     <th class="py-2 px-4 text-left border-b">Email</th>
                     <th class="py-2 px-4 text-left border-b">Phone Number</th>
+                    @can('teacher-edit')
                     <th class="py-2 px-4 text-center border-b">Actions</th>
+                    @endcan
                 </tr>
             </thead>
             <tbody>
@@ -51,19 +56,26 @@
                         <td class="py-2 px-4 border-b">{{ $teacher->DOB }}</td>
                         <td class="py-2 px-4 border-b">{{ $teacher->email }}</td>
                         <td class="py-2 px-4 border-b">{{ $teacher->phoneNumber }}</td>
+                        @can('teacher-edit')
                         <td class="py-2 px-4 border-b">
+                        @can('teacher-edit')
                             <a href="{{ route('teachers.edit', $teacher->id) }}" class="text-blue-600 hover:underline">Edit</a>
+                            @endcan
+                            @can('teacher-delete')
                             <form action="{{ route('teachers.destroy', $teacher->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="text-red-600 hover:underline ml-2">Delete</button>
                             </form>
+                            @endcan
                         </td>
+                        @endcan
                     </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
+    @endcan
 
     <!-- Pagination Links -->
     <div class="mt-4">

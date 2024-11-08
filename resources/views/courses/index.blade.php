@@ -11,10 +11,12 @@
     @endif
 
     <div class="mb-4 text-end">
+        @can('course-create')
         <div>
             <a href="{{ route('courses.create') }}" class="bg-teal-500 text-white px-4 py-2 rounded hover:bg-teal-600">New Course</a>
             <a href="{{ route('courses.pdf') }}" class="bg-teal-500 text-white px-4 py-2 rounded hover:bg-teal-600 ml-2">Download PDF</a>
         </div>
+        @endcan
         <div class="mt-4">
             <form action="{{ route('courses.index') }}" method="GET">
                 <input type="text" name="search" placeholder="Search by course name"
@@ -26,6 +28,7 @@
         </div>
     </div>
 
+    @can('course-list')
     <div class="overflow-x-auto">
         <table class="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
             <thead class="bg-gray-200">
@@ -33,7 +36,9 @@
                     <th class="py-2 px-4 text-left border-b">Course ID</th>
                     <th class="py-2 px-4 text-left border-b">Course Name</th>
                     <th class="py-2 px-4 text-left border-b">Max Points</th>
+                    @can('course-edit')
                     <th class="py-2 px-4 border-b">Actions</th>
+                    @endcan
                 </tr>
             </thead>
             <tbody>
@@ -42,19 +47,26 @@
                         <td class="py-2 px-4 border-b">{{ $course->courseID }}</td>
                         <td class="py-2 px-4 border-b">{{ $course->courseName }}</td>
                         <td class="py-2 px-4 border-b">{{ $course->maxPoints }}</td>
+                        @can('course-edit')
                         <td class="py-2 px-4 text-center border-b">
+                        @can('course-edit')
                             <a href="{{ route('courses.edit', $course->id) }}" class="text-white bg-blue-500 px-5 py-1 text-[10px] rounded">Edit</a>
+                            @endcan
                             <form action="{{ route('courses.destroy', $course->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
+                                @can('course-edit')
                                 <button type="submit" class="text-white bg-red-500 px-3 py-1 text-[10px] rounded">Delete</button>
+                                @endcan
                             </form>
                         </td>
+                        @endcan
                     </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
+    @endcan
 
     <div class="mt-4">
         {{ $courses->links() }}

@@ -11,6 +11,7 @@
     @endif
 
     <!-- Create New Student Button -->
+     @can('student-create')
     <div class="mb-4 text-end">
         <a href="{{ route('students.create') }}" class="bg-teal-500 text-white px-4 py-2 rounded hover:bg-teal-600">
             Nouvel étudiant
@@ -20,6 +21,7 @@
         </a>
 
     </div>
+    @endcan
 
 
     <!-- Search Form -->
@@ -33,6 +35,7 @@
         </form>
     </div>
 
+    @can('student-list')
     <div class="overflow-x-auto">
         <table class="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
             <thead class="bg-gray-200">
@@ -43,7 +46,9 @@
                     <th class="py-2 px-4 text-left border-b">Email</th>
                     <th class="py-2 px-4 text-left border-b">Adresse</th>
                     <th class="py-2 px-4 text-left border-b">Numéro de téléphone</th>
+                    @can('student-edit')
                     <th class="py-2 px-4 text-center border-b">Actes</th>
+                    @endcan
                 </tr>
             </thead>
             <tbody>
@@ -55,19 +60,26 @@
                         <td class="py-2 px-4 border-b">{{ $student->email }}</td>
                         <td class="py-2 px-4 border-b">{{ $student->address }}</td>
                         <td class="py-2 px-4 border-b">{{ $student->phoneNumber }}</td>
+                        @can('student-edit')
                         <td class="py-2 px-4 border-b">
+                        @can('student-edit')
                             <a href="{{ route('students.edit', $student->id) }}" class="text-blue-600 hover:underline">Edit</a>
+                            @endcan
+                            @can('student-delete')
                             <form action="{{ route('students.destroy', $student->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="text-red-600 hover:underline ml-2">Delete</button>
                             </form>
+                            @endcan
                         </td>
+                        @endcan
                     </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
+    @endcan
 
     <!-- Pagination Links -->
     <div class="mt-4">

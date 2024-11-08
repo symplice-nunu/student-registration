@@ -2,44 +2,61 @@
 @section('content')
 <div class="h-screen">
     <div class="p-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 lg:grid-cols-4 gap-3">
-        <div class="bg-black text-white p-4 rounded-xl">
-            <div>Utilisateurs</div>
-            <div class="text-[25px] font-bold">{{ $userCount }}</div>
-        </div>
+        @can('users')
+            <div class="bg-black text-white p-4 rounded-xl">
+                <div>Utilisateurs</div>
+                <div class="text-[25px] font-bold">{{ $userCount }}</div>
+            </div>
+        @endcan
+        @can('student')
         <div class="bg-black text-white p-4 rounded-xl">
             <div>Étudiant</div>
             <div class="text-[25px] font-bold">{{ $studentCount }}</div>
         </div>
+        @can('teacher')
+        @endcan
         <div class="bg-black text-white p-4 rounded-xl">
             <div>Professeur</div>
             <div class="text-[25px] font-bold">{{ $teacherCount }}</div>
         </div>
+        @endcan
+        @can('class')
         <div class="bg-black text-white p-4 rounded-xl">
             <div>Classe</div>
             <div class="text-[25px] font-bold">{{ $classCount }}</div>
         </div>
+        @endcan
+        @can('teacher')
         <div class="bg-black text-white p-4 rounded-xl">
             <div>Montant par semestre</div>
             <div class="text-[25px] font-bold">1000</div>
         </div>
+        @endcan
+        @can('teacher')
         <div class="bg-black text-white p-4 rounded-xl">
             <div>Montant par an</div>
             <div class="text-[25px] font-bold">1000</div>
         </div>
+        @endcan
+        @can('document')
         <div class="bg-black text-white p-4 rounded-xl">
             <div>Documents</div>
             <div class="text-[25px] font-bold">{{ $documentCount }}</div>
         </div>
+        @endcan
+        @can('course')
         <div class="bg-black text-white p-4 rounded-xl">
             <div>Cours</div>
             <div class="text-[25px] font-bold">{{ $courseCount }}</div>
         </div>
+        @endcan
     </div>
+    @can('teacher')
     <div class="max-w-full  bg-white p-6 rounded-lg shadow-md">
-<div class="flex gap-10 ">
-    <div class="w-full"><canvas id="comparisonChart" class="mb-4"></canvas></div>
-    <div class="h-[800px]"><canvas id="pieChart"></canvas></div>
-</div>
+        <div class="flex gap-10 ">
+            <div class="w-full"><canvas id="comparisonChart" class="mb-4"></canvas></div>
+            <div class="h-[800px]"><canvas id="pieChart"></canvas></div>
+        </div>
         <script>
             // Getting the data from the server
             const userCount = {{ $userCount }};
@@ -123,5 +140,6 @@
             });
         </script>
     </div>
+    @endcan
 </div>
 @endsection

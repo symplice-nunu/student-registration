@@ -33,42 +33,60 @@
                 </div>
                 <div class="text-[#d4d4d4] pt-9">Menu principal</div>
 
+                @can('dashboard')
                 <a href="{{ route('home') }}">
                     <div class="mt-4 px-3 rounded py-2 {{ request()->routeIs('home') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Tableau de bord
                     </div>
                 </a>
+                @endcan
+                @can('users')
                 <a href="{{ route('users.index') }}">
                     <div class="px-3 rounded py-2 {{ request()->routeIs('users.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Utilisateurs
                     </div>
                 </a>
-                <a class="nav-link" href="{{ route('roles.index') }}">
-                    <div class="px-3 rounded py-2 {{ request()->routeIs('roles.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Rôle
-                    </div>
-                </a>
+                @endcan
+                @can('role')
+                    <a class="nav-link" href="{{ route('roles.index') }}">
+                        <div class="px-3 rounded py-2 {{ request()->routeIs('roles.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Rôle
+                        </div>
+                    </a>
+                @endcan
+                @can('student')
                 <a class="nav-link" href="{{ route('students.index') }}">
                     <div class="px-3 rounded py-2 {{ request()->routeIs('students.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Étudiant
                     </div>
                 </a>
+                @endcan
+                @can('teacher')
                 <a class="nav-link" href="{{ route('teachers.index') }}">
                     <div class="px-3 rounded py-2 {{ request()->routeIs('teachers.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Professeur
                     </div>
                 </a>
+                @endcan
+                @can('class')
                 <a class="nav-link" href="{{ route('classes.index') }}">
                     <div class="px-3 rounded py-2 {{ request()->routeIs('classes.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Classe
                     </div>
                 </a>
+                @endcan
+                @can('document')
                 <a class="nav-link" href="{{ route('documents.list') }}">
                     <div class="px-3 rounded py-2 {{ request()->routeIs('documents.list') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Document
                     </div>
                 </a>
+                @endcan
+                @can('course')
                 <a class="nav-link" href="{{ route('courses.index') }}">
                     <div class="px-3 rounded py-2 {{ request()->routeIs('courses.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Cours
                     </div>
                 </a>
+                @endcan
+                @can('role-list')
                 <a class="nav-link" href="{{ route('assign.list') }}">
                     <div class="px-3 rounded py-2 {{ request()->routeIs('assign.list') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Attribuer une classe et un cours
                     </div>
                 </a>
+                @endcan
                 <a class="nav-link" href="{{ route('selections.list') }}">
                     <div class="px-3 rounded py-2 {{ request()->routeIs('selections.list') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Marks
                     </div>

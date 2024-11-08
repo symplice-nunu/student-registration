@@ -11,9 +11,11 @@
 
     <h2 class="text-2xl font-semibold text-center text-teal-600 mb-4">Student Names & Marks</h2>
 
+    @can('marks-list')
+   <!-- <?php //if(Auth::user()->email }} ?>-->
     <form action="{{ route('update.marks') }}" method="POST">
         @csrf
-        <ul class="gap-2 grid grid-cols-3">
+        <ul class="gap-2 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
             @foreach ($studentNames as $student)
                 <li class="flex flex-col space-y-2 bg-teal-50 p-4 rounded-lg shadow-sm hover:bg-teal-100">
                     <span class="text-lg font-medium text-teal-800">{{ $student->student_name }}</span>
@@ -25,11 +27,13 @@
                             <span class="font-semibold">{{ $student->total_quiz_marks }}</span>
                         </div>
                         <!-- Quiz Marks Input -->
+                        @can('marks-edit')
                         <div class="">
                             <input type="number" name="students[{{ $student->id }}][quiz_marks]" 
                                 class="border border-teal-300 rounded px-2 py-1 w-20 text-center"
                                 placeholder="0-100" min="0" max="100">
                         </div>
+                        @endcan
                     </div>
 
                     <div class="flex justify-between">
@@ -38,11 +42,13 @@
                             <span class="font-semibold">{{ $student->total_exam_marks }}</span>
                         </div> 
                         <!-- Exam Marks Input -->
+                        @can('marks-edit')
                         <div class="flex items-center space-x-2">
                             <input type="number" name="students[{{ $student->id }}][exam_marks]" 
                                 class="border border-teal-300 rounded px-2 py-1 w-20 text-center"
                                 placeholder="0-100" min="0" max="100">
                         </div>
+                        @endcan
                     </div>
 
                     
@@ -62,10 +68,13 @@
         </ul>
 
         <!-- Save Button -->
+        @can('marks-edit')
         <button type="submit" class="mt-6 w-full bg-teal-500 text-white py-2 rounded-md text-lg font-semibold hover:bg-teal-600">
             Save Marks
         </button>
+        @endcan
     </form>
+    @endcan
 </div>
 
 <!-- Modal for displaying student details -->

@@ -123,10 +123,13 @@ class RoleController extends Controller
          // Create the new role
          $role = Role::create(['name' => $request->input('name')]);
      
-         // Sync the permissions with the role
-         $role->syncPermissions($request->input('permission'));
+         // Retrieve permission names based on the IDs provided in the request
+         $permissions = Permission::whereIn('id', $request->input('permission'))->pluck('name')->toArray();
      
-         // Redirect back with success message
+         // Sync the permissions with the role using permission names
+         $role->syncPermissions($permissions);
+     
+         // Redirect back with a success message
          return redirect()->route('roles.index')
                           ->with('success', 'Role created successfully');
      }
@@ -212,37 +215,28 @@ class RoleController extends Controller
 
      */
 
-    public function update(Request $request, $id): RedirectResponse
-
-    {
-
-        $this->validate($request, [
-
-            'name' => 'required',
-
-            'permission' => 'required',
-
-        ]);
-
-    
-
-        $role = Role::find($id);
-
-        $role->name = $request->input('name');
-
-        $role->save();
-
-    
-
-        $role->syncPermissions($request->input('permission'));
-
-    
-
-        return redirect()->route('roles.index')
-
-                        ->with('success','Role updated successfully');
-
-    }
+     public function update(Request $request, $id): RedirectResponse
+     {
+         $this->validate($request, [
+             'name' => 'required',
+             'permission' => 'required|array', // Ensure permission is an array
+             'permission.*' => 'exists:permissions,id', // Validate each permission ID exists
+         ]);
+     
+         $role = Role::findOrFail($id);
+         $role->name = $request->input('name');
+         $role->save();
+     
+         // Retrieve permission names based on the IDs provided in the request
+         $permissions = Permission::whereIn('id', $request->input('permission'))->pluck('name')->toArray();
+     
+         // Sync the permissions with the role using permission names
+         $role->syncPermissions($permissions);
+     
+         return redirect()->route('roles.index')
+                          ->with('success', 'Role updated successfully');
+     }
+     
 
     /**
 

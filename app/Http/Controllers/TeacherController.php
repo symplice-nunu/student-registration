@@ -13,19 +13,19 @@ use PDF;
 
 class TeacherController extends Controller
 { 
-    function __construct()
-    {
-        $this->middleware(function ($request, $next) {
-            // Check if the user has 'Admin' role, then bypass specific permission checks
-            if (auth()->user() && auth()->user()->hasRole('Admin')) {
-                return $next($request);
-            }
-            $this->middleware('permission:teacher-list|teacher-create|teacher-edit|teacher-delete', ['only' => ['index','show']]);
-            $this->middleware('permission:teacher-create', ['only' => ['create','store']]);
-            $this->middleware('permission:teacher-edit', ['only' => ['edit','update']]);
-            $this->middleware('permission:teacher-delete', ['only' => ['destroy']]);
-        });
-    }
+    // function __construct()
+    // {
+    //     $this->middleware(function ($request, $next) {
+    //         // Check if the user has 'Admin' role, then bypass specific permission checks
+    //         if (auth()->user() && auth()->user()->hasRole('Admin')) {
+    //             return $next($request);
+    //         }
+    //         $this->middleware('permission:teacher-list|teacher-create|teacher-edit|teacher-delete', ['only' => ['index','show']]);
+    //         $this->middleware('permission:teacher-create', ['only' => ['create','store']]);
+    //         $this->middleware('permission:teacher-edit', ['only' => ['edit','update']]);
+    //         $this->middleware('permission:teacher-delete', ['only' => ['destroy']]);
+    //     });
+    // }
 
     public function index(Request $request)
     {

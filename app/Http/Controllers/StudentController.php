@@ -16,19 +16,7 @@ class StudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    function __construct()
-    {
-        $this->middleware(function ($request, $next) {
-        // Check if the user has 'Admin' role, then bypass specific permission checks
-        if (auth()->user() && auth()->user()->hasRole('Admin')) {
-            return $next($request);
-        }
-        $this->middleware('permission:student-list|student-create|student-edit|student-delete', ['only' => ['index','show']]);
-        $this->middleware('permission:student-create', ['only' => ['create','store']]);
-        $this->middleware('permission:student-edit', ['only' => ['edit','update']]);
-        $this->middleware('permission:student-delete', ['only' => ['destroy']]);
-        });
-    }
+   
 
     /**
      * Display a listing of the resource.

@@ -17,10 +17,10 @@
 
             <div class="mb-4">
                 <h3 class="text-lg font-semibold text-gray-700">Autorisations:</h3>
-                <div class="flex flex-wrap gap-2 mt-2">
+                <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 lg:grid-cols-4 gap-3 mt-2">
                     @if (!empty($rolePermissions))
                         @foreach ($rolePermissions as $v)
-                            <span class="px-3 py-1 bg-teal-100 text-teal-800 rounded-full font-semibold">{{ $v->name }}</span>
+                            <span class="px-6 py-1 bg-teal-500 text-white rounded-md font-semibold">{{ $v->name }}</span>
                         @endforeach
                     @else
                         <p class="text-gray-600">Aucune autorisation attribuée</p>
