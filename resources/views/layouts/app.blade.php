@@ -7,6 +7,7 @@
     <title>School Management System</title>
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <script src="https://js.stripe.com/v3/"></script>
     <script src="//unpkg.com/alpinejs" defer></script>
     <!-- Scripts -->
     @vite('resources/css/app.css')
@@ -89,6 +90,10 @@
                 @endcan
                 <a class="nav-link" href="{{ route('selections.list') }}">
                     <div class="px-3 rounded py-2 {{ request()->routeIs('selections.list') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Marks
+                    </div>
+                </a>
+                <a class="nav-link" href="{{ route('payments.index') }}">
+                    <div class="px-3 rounded py-2 {{ request()->routeIs('payments.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Payment
                     </div>
                 </a>
             </div>

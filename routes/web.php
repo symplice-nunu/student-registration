@@ -10,6 +10,7 @@ use App\Http\Controllers\ClassController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\AssignController;
+use App\Http\Controllers\StripePaymentController;
 
 Route::get('/', function () {
 
@@ -42,7 +43,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/selections/student-names', [AssignController::class, 'getStudentNames'])->name('selections.list');
     Route::post('/update-marks', [AssignController::class, 'updateMarks'])->name('update.marks');
     Route::post('/selections/{id}/update-marks', [AssignController::class, 'updateMarks'])->name('selections.updateMarks');
-
-
+    Route::get('/payment', [StripePaymentController::class, 'showPaymentForm'])->name('stripe.showPaymentForm');
+    Route::post('/payment', [StripePaymentController::class, 'processPayment'])->name('stripe.processPayment');
+    Route::get('/payments', [StripePaymentController::class, 'getAllPayments'])->name('payments.index');
+    Route::get('/payments/pdf', [StripePaymentController::class, 'generatePdf'])->name('payments.pdf');
     
 });
