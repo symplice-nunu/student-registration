@@ -11,6 +11,7 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\AssignController;
 use App\Http\Controllers\StripePaymentController;
+use App\Http\Controllers\ModificationController;
 
 Route::get('/', function () {
 
@@ -47,5 +48,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/payment', [StripePaymentController::class, 'processPayment'])->name('stripe.processPayment');
     Route::get('/payments', [StripePaymentController::class, 'getAllPayments'])->name('payments.index');
     Route::get('/payments/pdf', [StripePaymentController::class, 'generatePdf'])->name('payments.pdf');
+    Route::get('/modification', [ModificationController::class, 'getAllSelections'])->name('modification.all');
+    Route::post('/update-course-names/{id}', [ModificationController::class, 'updateCourseNames']);
+    Route::get('/new-selections', [ModificationController::class, 'showSelections'])->name('new-selections');
     
 });

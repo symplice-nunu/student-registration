@@ -36,19 +36,25 @@ class AssignController extends Controller
             'selected_student' => 'nullable|string',
             'selected_class' => 'nullable|string',
             'selected_courses' => 'nullable|string',
+            'email' => 'nullable|string',
         ]);
-    
+        $students = Student::get();
+        foreach($students as $student){
+           if($student->name == $request->selected_student){
+        $email = $student->email;
+           }
+        }
         // Save the selection to the database
         Selection::create([
             'student_name' => $request->selected_student,
             'class_name' => $request->selected_class,
+            'email' => $email,
             'course_names' => $request->selected_courses, // Assuming you store this as a comma-separated string
         ]);
     
         // Redirect back with a success message
         return redirect()->back()->with('success', 'Courses Assigned Successfully.');
     }
-    // app/Http/Controllers/AssignController.php
 
     public function edit($id)
     {
@@ -83,23 +89,39 @@ class AssignController extends Controller
     }
     public function getStudentNames()
     {
-        // Fetch distinct student names from selections table
-        $studentNames = Selection::select('student_name', 'id', 'quiz_marks', 'exam_marks')
+        // Fetch distinct student names and related data from selections table
+        $studentNames = Selection::select('student_name', 'course_names', 'id', 'quiz_marks', 'exam_marks')
                                 ->distinct()
                                 ->get();
-
-        // Calculate the sum of quiz marks and exam marks for each student
+    
+        // Calculate the sum of quiz marks and exam marks for each course for each student
         foreach ($studentNames as $student) {
-            // Decode the JSON arrays for quiz_marks and exam_marks
             $quizMarksArray = json_decode($student->quiz_marks, true) ?: [];
             $examMarksArray = json_decode($student->exam_marks, true) ?: [];
-
-            // Calculate the sum of the marks
-            $student->total_quiz_marks = array_sum($quizMarksArray);
-            $student->total_exam_marks = array_sum($examMarksArray);
+    
+            $totalQuizMarksByCourse = [];
+            $totalExamMarksByCourse = [];
+    
+            // Sum quiz marks for each course
+            foreach ($quizMarksArray as $course => $marks) {
+                if (is_array($marks)) {
+                    $totalQuizMarksByCourse[$course] = array_sum(array_filter($marks, fn($mark) => $mark !== null));
+                }
+            }
+    
+            // Sum exam marks for each course
+            foreach ($examMarksArray as $course => $marks) {
+                if (is_array($marks)) {
+                    $totalExamMarksByCourse[$course] = array_sum(array_filter($marks, fn($mark) => $mark !== null));
+                }
+            }
+    
+            // Assign the calculated totals to the student object for view use
+            $student->total_quiz_marks_by_course = $totalQuizMarksByCourse;
+            $student->total_exam_marks_by_course = $totalExamMarksByCourse;
         }
-
-        // Pass the student names and their total marks to the view
+    
+        // Pass the student names and their total marks by course to the view
         return view('assign.marks', [
             'studentNames' => $studentNames,
         ]);
@@ -110,58 +132,69 @@ class AssignController extends Controller
     {
         // Validate the input data
         $request->validate([
-            'students.*.quiz_marks' => 'nullable|integer|min:0|max:100',  // single quiz mark value
-            'students.*.exam_marks' => 'nullable|integer|min:0|max:100',  // single exam mark value
+            'students.*.quiz_marks' => 'array',  // Array of quiz marks by course
+            'students.*.exam_marks' => 'array',  // Array of exam marks by course
+            'students.*.quiz_marks.*' => 'nullable|integer|min:0|max:100',  // Individual quiz mark
+            'students.*.exam_marks.*' => 'nullable|integer|min:0|max:100',  // Individual exam mark
         ]);
-    
+
         // Get the students' data from the form
         $studentsData = $request->input('students');
-    
+
         // Update the selection marks for all students
         foreach ($studentsData as $studentId => $studentMarks) {
             $selection = Selection::find($studentId); // Find the selection by student ID
-    
+
             if ($selection) {
-                // Get existing marks (if any)
-                $existingQuizMarks = $selection->quiz_marks ? json_decode($selection->quiz_marks, true) : [];
-                $existingExamMarks = $selection->exam_marks ? json_decode($selection->exam_marks, true) : [];
-    
-                // Add new quiz marks to the existing array
+                // Decode existing marks; if null, set to empty array
+                $existingQuizMarks = json_decode($selection->quiz_marks, true);
+                $existingQuizMarks = is_array($existingQuizMarks) ? $existingQuizMarks : [];
+
+                $existingExamMarks = json_decode($selection->exam_marks, true);
+                $existingExamMarks = is_array($existingExamMarks) ? $existingExamMarks : [];
+
+                // Add or append quiz marks for each course, filtering out null values
                 if (isset($studentMarks['quiz_marks'])) {
-                    $existingQuizMarks[] = $studentMarks['quiz_marks'];  // Append new quiz mark
+                    foreach ($studentMarks['quiz_marks'] as $course => $quizMark) {
+                        // Ensure each course has an array to hold multiple marks
+                        if (!isset($existingQuizMarks[$course]) || !is_array($existingQuizMarks[$course])) {
+                            $existingQuizMarks[$course] = [];
+                        }
+                        // Append the new quiz mark to the array only if it is not null
+                        if (!is_null($quizMark)) {
+                            $existingQuizMarks[$course][] = $quizMark;
+                        }
+                    }
                 }
-    
-                // Add new exam marks to the existing array
+
+                // Add or append exam marks for each course, filtering out null values
                 if (isset($studentMarks['exam_marks'])) {
-                    $existingExamMarks[] = $studentMarks['exam_marks'];  // Append new exam mark
+                    foreach ($studentMarks['exam_marks'] as $course => $examMark) {
+                        // Ensure each course has an array to hold multiple marks
+                        if (!isset($existingExamMarks[$course]) || !is_array($existingExamMarks[$course])) {
+                            $existingExamMarks[$course] = [];
+                        }
+                        // Append the new exam mark to the array only if it is not null
+                        if (!is_null($examMark)) {
+                            $existingExamMarks[$course][] = $examMark;
+                        }
+                    }
                 }
-    
-                // Store the updated quiz marks array as JSON
+
+                // Store the updated marks as JSON
                 $selection->quiz_marks = json_encode($existingQuizMarks);
-    
-                // Store the updated exam marks array as JSON
                 $selection->exam_marks = json_encode($existingExamMarks);
-    
+
                 // Save the updated record
                 $selection->save();
             }
         }
-    
-        // Redirect back with success message
+
+        // Redirect back with a success message
         return redirect()->back()->with('success', 'Marks updated successfully.');
     }
-    
 
-    // public function getAllSelections()
-    // {
-    //     // Fetch all data from the selections table
-    //     $selections = Selection::all();
 
-    //     // Return the data as a view or JSON, depending on your requirement
-    //     return view('selections.index', compact('selections'));
 
-    //     // OR return as JSON for an API
-    //     // return response()->json($selections);
-    // }
     
 }

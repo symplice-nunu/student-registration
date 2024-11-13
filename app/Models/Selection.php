@@ -27,5 +27,6 @@ class Selection extends Model
         'course_names',
         'quiz_marks',
         'exam_marks',
+        'email',
     ];
 }

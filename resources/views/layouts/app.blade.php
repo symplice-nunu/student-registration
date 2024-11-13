@@ -13,6 +13,7 @@
     @vite('resources/css/app.css')
     <!-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
     <div id="app">
@@ -36,64 +37,91 @@
 
                 @can('dashboard')
                 <a href="{{ route('home') }}">
-                    <div class="mt-4 px-3 rounded py-2 {{ request()->routeIs('home') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Tableau de bord
+                    <div class="mt-4 px-3 rounded py-2 {{ request()->routeIs('home') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">
+                        <i class="fas fa-tachometer-alt mr-2"></i> Tableau de bord
                     </div>
                 </a>
                 @endcan
+
                 @can('users')
                 <a href="{{ route('users.index') }}">
-                    <div class="px-3 rounded py-2 {{ request()->routeIs('users.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Utilisateurs
+                    <div class="px-3 rounded py-2 {{ request()->routeIs('users.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">
+                        <i class="fas fa-users mr-2"></i> Utilisateurs
                     </div>
                 </a>
                 @endcan
+
                 @can('role')
-                    <a class="nav-link" href="{{ route('roles.index') }}">
-                        <div class="px-3 rounded py-2 {{ request()->routeIs('roles.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Rôle
-                        </div>
-                    </a>
+                <a class="nav-link" href="{{ route('roles.index') }}">
+                    <div class="px-3 rounded py-2 {{ request()->routeIs('roles.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">
+                        <i class="fas fa-user-shield mr-2"></i> Rôle
+                    </div>
+                </a>
                 @endcan
+
                 @can('student')
                 <a class="nav-link" href="{{ route('students.index') }}">
-                    <div class="px-3 rounded py-2 {{ request()->routeIs('students.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Étudiant
+                    <div class="px-3 rounded py-2 {{ request()->routeIs('students.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">
+                        <i class="fas fa-graduation-cap mr-2"></i> Étudiant
                     </div>
                 </a>
                 @endcan
+
                 @can('teacher')
                 <a class="nav-link" href="{{ route('teachers.index') }}">
-                    <div class="px-3 rounded py-2 {{ request()->routeIs('teachers.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Professeur
+                    <div class="px-3 rounded py-2 {{ request()->routeIs('teachers.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">
+                        <i class="fas fa-chalkboard-teacher mr-2"></i> Professeur
                     </div>
                 </a>
                 @endcan
+
                 @can('class')
                 <a class="nav-link" href="{{ route('classes.index') }}">
-                    <div class="px-3 rounded py-2 {{ request()->routeIs('classes.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Classe
+                    <div class="px-3 rounded py-2 {{ request()->routeIs('classes.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">
+                        <i class="fas fa-school mr-2"></i> Classe
                     </div>
                 </a>
                 @endcan
+
                 @can('document')
                 <a class="nav-link" href="{{ route('documents.list') }}">
-                    <div class="px-3 rounded py-2 {{ request()->routeIs('documents.list') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Document
+                    <div class="px-3 rounded py-2 {{ request()->routeIs('documents.list') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">
+                        <i class="fas fa-file-alt mr-2"></i> Document
                     </div>
                 </a>
                 @endcan
+
                 @can('course')
                 <a class="nav-link" href="{{ route('courses.index') }}">
-                    <div class="px-3 rounded py-2 {{ request()->routeIs('courses.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Cours
+                    <div class="px-3 rounded py-2 {{ request()->routeIs('courses.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">
+                        <i class="fas fa-book mr-2"></i> Cours
                     </div>
                 </a>
                 @endcan
+
                 @can('role-list')
                 <a class="nav-link" href="{{ route('assign.list') }}">
-                    <div class="px-3 rounded py-2 {{ request()->routeIs('assign.list') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Attribuer une classe et un cours
+                    <div class="px-3 rounded py-2 {{ request()->routeIs('assign.list') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">
+                        <i class="fas fa-clipboard-list mr-2"></i> Attribuer une classe et un cours
                     </div>
                 </a>
                 @endcan
+
                 <a class="nav-link" href="{{ route('selections.list') }}">
-                    <div class="px-3 rounded py-2 {{ request()->routeIs('selections.list') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Marks
+                    <div class="px-3 rounded py-2 {{ request()->routeIs('selections.list') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">
+                        <i class="fas fa-pencil-alt mr-2"></i> Marks
                     </div>
                 </a>
+
                 <a class="nav-link" href="{{ route('payments.index') }}">
-                    <div class="px-3 rounded py-2 {{ request()->routeIs('payments.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">Payment
+                    <div class="px-3 rounded py-2 {{ request()->routeIs('payments.index') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">
+                        <i class="fas fa-dollar-sign mr-2"></i> Payment
+                    </div>
+                </a>
+
+                <a class="nav-link" href="{{ route('modification.all') }}">
+                    <div class="px-3 rounded py-2 {{ request()->routeIs('modification.all') ? 'bg-white text-black' : 'text-white' }} hover:bg-white hover:text-black">
+                        <i class="fas fa-edit mr-2"></i> Modification
                     </div>
                 </a>
             </div>
